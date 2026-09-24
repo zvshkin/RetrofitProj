@@ -1,18 +1,18 @@
-package com.example.retrofitproj
+package com.example.retrofitproj.ui.viewmodel
 
 import android.util.Log
 import android.content.ContentValues.TAG
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.retrofitproj.service.UserInterface
+import com.example.retrofitproj.data.RetrofitClient
+import com.example.retrofitproj.data.service.UserInterface
 import kotlinx.coroutines.launch
 
-class UserViewModel(
-    private val api: UserInterface = RetrofitClient.retrofitAPI
-): ViewModel() {
+class UserViewModel: ViewModel() {
     fun fetch() {
         viewModelScope.launch {
             try {
+                val api: UserInterface = RetrofitClient.retrofitAPI
                 val userResponse = api.getUsers()
                 val users = userResponse.users
                 for (user in users) {

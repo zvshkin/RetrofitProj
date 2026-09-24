@@ -1,9 +1,10 @@
-package com.example.retrofitproj
+package com.example.retrofitproj.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.retrofitproj.model.Product
+import com.example.retrofitproj.data.RetrofitClient
+import com.example.retrofitproj.data.model.Product
 import kotlinx.coroutines.launch
 
 class ProductViewModel : ViewModel() {
