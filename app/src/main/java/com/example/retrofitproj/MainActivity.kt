@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
 
             productViewModel.createProduct(product)
             userViewModel.fetch()
+            userViewModel.deleteUser(15)
 
             val recipeViewModel: RecipeViewModel = viewModel()
 

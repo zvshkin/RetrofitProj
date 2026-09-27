@@ -23,4 +23,23 @@ class UserViewModel: ViewModel() {
             }
         }
     }
+
+    fun deleteUser(id: Int) {
+        viewModelScope.launch {
+            try {
+                val api: UserInterface = RetrofitClient.retrofitAPI
+                val user = api.deleteUser(id)
+                Log.d("UserViewModel", "Пользователь удален:\n" +
+                        "ID: ${user.id}\n" +
+                        "Имя: ${user.firstName}\n" +
+                        "Фамилия: ${user.lastName}\n" +
+                        "Username: ${user.username}\n" +
+                        "Роль: ${user.role}\n" +
+                        "isDeleted: ${user.isDeleted}\n" +
+                        "deletedOn: ${user.deletedOn}")
+            } catch (e: Exception) {
+                Log.e("UserViewModel", "Ошибка при удалении: ${e.message}", e)
+            }
+        }
+    }
 }

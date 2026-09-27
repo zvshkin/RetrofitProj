@@ -1,8 +1,11 @@
 package com.example.retrofitproj.data.model
 
 data class User(
-    val firstName: String,
-    val lastName: String,
-    val username: String,
-    val role: String
+    val id: Int? = null,
+    val firstName: String? = null,
+    val lastName: String? = null,
+    val username: String? = null,
+    val role: String? = null,
+    val isDeleted: Boolean = false,
+    val deletedOn: String? = null,
 )
