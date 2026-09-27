@@ -4,35 +4,39 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.retrofitproj.data.RetrofitClient
-import com.example.retrofitproj.data.model.Recipe
 import kotlinx.coroutines.launch
 
 class RecipeViewModel : ViewModel() {
 
-    fun fetch(id: Int) {
+    fun fetchAndUpdate(id: Int) {
         viewModelScope.launch {
             try {
-                val recipe = RetrofitClient.recipeAPI.getRecipe(id)
+                val fetchedRecipe = RetrofitClient.recipeAPI.getRecipe(id)
                 Log.d("RecipeViewModel", "до редактирования")
-                Log.d(
-                    "RecipeViewModel",
-                    "${recipe.id}\n${recipe.name}\n${recipe.ingredients}\n${recipe.cookTimeMinutes}\n${recipe.difficulty}",
-                )
-            } catch (e: Exception) {
-                Log.e("RecipeViewModel", e.message.toString(), e)
-            }
-        }
-    }
+                Log.d("RecipeViewModel", "${fetchedRecipe.id}\n${fetchedRecipe.name}...")
 
-    fun updateRecipe(id: Int, recipe: Recipe) {
-        viewModelScope.launch {
-            try {
-                val recipe = RetrofitClient.recipeAPI.updateRecipe(id, recipe)
-                Log.d("RecipeViewModel", "после редактирования")
-                Log.d(
-                    "RecipeViewModel",
-                    "${recipe.id}\n${recipe.name}\n${recipe.ingredients}\n${recipe.cookTimeMinutes}\n${recipe.difficulty}",
+                val ingredients = listOf(
+                    "Куриное филе",
+                    "сливки",
+                    "чеснок",
+                    "сливочное масло",
+                    "растительное масло",
+                    "твердый сыр",
+                    "соль",
+                    "черный перец",
+                    "итальянские травы"
                 )
+
+                val recipeToUpdate = fetchedRecipe.copy(
+                    name = "Куриное филе в сливочно-чесночном соусе",
+                    ingredients = ingredients,
+                    cookTimeMinutes = 25,
+                    difficulty = "Легкая"
+                )
+
+                val updatedRecipe = RetrofitClient.recipeAPI.updateRecipe(id, recipeToUpdate)
+                Log.d("RecipeViewModel", "после редактирования")
+                Log.d("RecipeViewModel", "${updatedRecipe.id}\n${updatedRecipe.name}...")
             } catch (e: Exception) {
                 Log.e("RecipeViewModel", e.message.toString(), e)
             }
