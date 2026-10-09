@@ -1,7 +1,9 @@
 package com.example.retrofitproj.data
 
+import com.example.retrofitproj.data.service.LoginInterface
 import com.example.retrofitproj.data.service.ProductInterface
 import com.example.retrofitproj.data.service.RecipeInterface
+import com.example.retrofitproj.data.service.TodosInterface
 import com.example.retrofitproj.data.service.UserInterface
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,7 +29,16 @@ object RetrofitClient {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    val retrofitSwagger: Retrofit = Retrofit.Builder()
+        .baseUrl("http://10.207.106.59:8090/api/collections/")
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
     val retrofitAPI: UserInterface = retrofit.create(UserInterface::class.java)
     val productAPI: ProductInterface = retrofit.create(ProductInterface::class.java)
     val recipeAPI: RecipeInterface = retrofit.create(RecipeInterface::class.java)
+
+    val loginAPI: LoginInterface = retrofitSwagger.create(LoginInterface::class.java)
+    val todosAPI: TodosInterface = retrofitSwagger.create(TodosInterface::class.java)
 }

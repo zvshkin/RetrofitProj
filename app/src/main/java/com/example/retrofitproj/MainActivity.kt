@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.retrofitproj.data.model.LoginRequest
 import com.example.retrofitproj.data.model.Product
+import com.example.retrofitproj.ui.viewmodel.LoginViewModel
 import com.example.retrofitproj.ui.viewmodel.ProductViewModel
 import com.example.retrofitproj.ui.viewmodel.RecipeViewModel
 import com.example.retrofitproj.ui.viewmodel.UserViewModel
@@ -30,8 +32,14 @@ class MainActivity : ComponentActivity() {
             userViewModel.deleteUser(15)
 
             val recipeViewModel: RecipeViewModel = viewModel()
-
             recipeViewModel.fetchAndUpdate(11)
+
+            val loginViewModel: LoginViewModel = viewModel()
+            val loginUser = LoginRequest(
+                identity = "test@example.com",
+                password = "123123123"
+            )
+            loginViewModel.login(loginUser)
         }
     }
 }
